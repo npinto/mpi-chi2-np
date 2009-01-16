@@ -28,8 +28,11 @@ def chi2_dist(X,Y=None,K=None):
     except:
         print "Unable to load chi2-library"
         raise RuntimeError
-        
-    if X==Y:
+
+    print X.shape
+    print Y.shape
+    #if ((X-Y)==0).all():
+    if X.shape == Y.shape:
         if datatype==c_float:
             chi2_routine = chi2lib.chi2_distance_float
         else:
