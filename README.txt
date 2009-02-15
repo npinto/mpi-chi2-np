@@ -13,3 +13,7 @@ See LICENSE.txt for the licensing terms.
 Changelog:
 	2008/07/21: bug fixed in SHUFFLE for double entries.
 	Thanks for Sebastian Nowozin for spotting this.
+
+        2009/02/15: bug fixed in symmetric chi2 calculation
+                    and python wrapper. Thanks to Nicolas Pinto 
+                    for spotting this.

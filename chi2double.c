@@ -86,13 +86,14 @@ double chi2sym_distance_double(const int dim, const int nx, const double* const 
     {
         int i,j;
 #pragma omp for reduction (+:sumK) schedule (dynamic, 2)
-        for (i=0;i<nx;i++)
-	    K[i*nx+i]=0.;
+        for (i=0;i<nx;i++) {
+    	    K[i*nx+i]=0.;
             for (j=0;j<i;j++) {
                 const double chi2 = chi2_double(dim, &x[i*dim], &x[j*dim]);
-		K[i*nx+j] = chi2;
-		K[j*nx+i] = chi2;
-		sumK += 2*chi2;
+    	    	K[i*nx+j] = chi2;
+	    	    K[j*nx+i] = chi2;    
+        		sumK += 2*chi2;
+            }
 	    }
     }
     return sumK/((float)(nx*nx)); 

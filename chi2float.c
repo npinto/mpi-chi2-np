@@ -83,18 +83,19 @@ float chi2sym_distance_float(const int dim, const int nx, const float* const x,
     chi2_float = chi2_intrinsic_float;
 #endif
 	
-    float sumK;
+    float sumK=0.f;
 #pragma omp parallel
     {
         int i,j;
 #pragma omp for reduction (+:sumK) schedule (dynamic,2)
-        for (i=0;i<nx;i++)
-	    K[i*nx+i]=0.;
+        for (i=0;i<nx;i++) {
+    	    K[i*nx+i]=0.;
             for (j=0;j<i;j++) {
 	    	const float chi2 = (*chi2_float)(dim, &x[i*dim], &x[j*dim]); 
                 K[i*nx+j] = chi2;
                 K[j*nx+i] = chi2;
-		sumK += 2*chi2;
+	        	sumK += 2*chi2;
+            }
 	    }
     }
     return sumK/((float)(nx*nx)); 
@@ -108,16 +109,17 @@ float chi2_distance_float(const int dim, const int nx, const float* const x,
     chi2_float = chi2_intrinsic_float;
 #endif
 	
-    float sumK;
+    float sumK=0.f;
 #pragma omp parallel
     {
         int i,j;
 #pragma omp for reduction (+:sumK) schedule (dynamic,2)
-        for (i=0;i<nx;i++)
+        for (i=0;i<nx;i++) {
             for (j=0;j<ny;j++) {
 	    	float chi2 = (*chi2_float)(dim, &x[i*dim], &y[j*dim]); 
                 K[i*ny+j] = chi2;
-		sumK += chi2;
+        		sumK += chi2;
+            }
 	    }
     }
     return sumK/((float)(nx*ny)); 

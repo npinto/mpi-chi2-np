@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O3 -march=nocona -ffast-math -fomit-frame-pointer -fPIC
+CFLAGS = -O3 -march=nocona -ffast-math -fomit-frame-pointer 
 #OMPFLAGS = -fopenmp
 
 #CC=icc
